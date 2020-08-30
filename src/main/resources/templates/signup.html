@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
+	
+	<div th:replace="fragment/includes :: heads"></div>
+	
+	<link th:href="@{/css/account.css}" rel="stylesheet" />
+	
+</head>
+
+<script th:inline="javascript">
+	var token = $("meta[name=_csrf]").attr("content");
+	var header = $("meta[name=_csrf_header]").attr("content");
+	
+	function btn_toggle() {
+		var type = $("#password").attr("type");
+		var btn_open = $("input[name=btn_path_for_open]").val();
+		var btn_close = $("input[name=btn_path_for_close]").val();
+		
+		if(type == "text") {
+			$("#password").prop("type", "password");
+			$("#confirm").prop("type", "password");
+			$("#toggle").prop("src", btn_open);		
+		} else {
+			$("#password").prop("type", "text");
+			$("#confirm").prop("type", "text");
+			$("#toggle").prop("src", btn_close);
+		}
+	}
+	
+	function chk_invalid_id() {
+		var invalid = false;
+		var id = $("#id").val();
+		var alert_msg = "";
+		
+		$("#msg_for_id").addClass("hidden");
+		
+		if(id == "") {
+			alert_msg = "아이디를 입력하세요.";
+			invalid = true;
+		} else if(id.length < 4 || id.length > 20) {
+			alert_msg = "길이는 4~20로 가능합니다.";
+			invalid = true;
+		}
+		
+		if(invalid) {
+			$("span[name=msg_for_id]").html(alert_msg);
+			$("#msg_for_id").removeClass("hidden");
+		}
+		
+		return invalid;
+	}
+	
+	function chk_invalid_name() {
+		var invalid = false;
+		var name = $("#name").val();
+		var alert_msg = "";
+		
+		$("#msg_for_name").addClass("hidden");
+		
+		if(name == "") {
+			alert_msg = "이름을 입력하세요.";
+			invalid = true;
+		} else if(name.length < 4 || name.length > 20) {
+			alert_msg = "길이는 4~20로 가능합니다.";
+			invalid = true;
+		}
+		
+		if(invalid) {
+			$("span[name=msg_for_name]").html(alert_msg);
+			$("#msg_for_name").removeClass("hidden");
+		}
+		
+		return invalid;
+	}
+	
+	function chk_invalid_email() {
+		var invalid = false;
+		var email = $("#email").val();
+		var regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		var alert_msg = "";
+		
+		$("#msg_for_email").addClass("hidden");
+		
+		if(email == "") {
+			alert_msg = "이메일 주소를 입력하세요.";
+			invalid = true;
+		} else if(!regEmail.test(email)) {
+			alert_msg = "형식이 올바르지 않습니다.";
+			invalid = true;
+		}
+		
+		if(invalid) {
+			$("span[name=msg_for_email]").html(alert_msg);
+			$("#msg_for_email").removeClass("hidden");
+		}
+		
+		return invalid;
+	}
+	
+	function chk_invalid_sex() {
+		var invalid = false;
+		var sex = $("#sex option:selected").val();
+		var alert_msg = "";
+		
+		$("#msg_for_sex").addClass("hidden");
+		
+		if(sex == 0) {
+			invalid = true;
+		}
+		
+		if(invalid) {
+			$("#msg_for_sex").removeClass("hidden");
+		}
+		
+		return invalid;
+	}
+	
+	function chk_invalid_phone() {
+		var invalid = false;
+		var phone = $("#phone").val();
+		var alert_msg = "";
+		
+		$("#msg_for_phone").addClass("hidden");
+		
+		if(phone == "") {
+			alert_msg = "연락처를 입력하세요.";
+			invalid = true;
+		} else if(phone.length != 11) {
+			alert_msg = "형식이 올바르지 않습니다.";
+			invalid = true;
+		}
+		
+		if(invalid) {
+			$("span[name=msg_for_phone]").html(alert_msg);
+			$("#msg_for_phone").removeClass("hidden");
+		}
+		
+		return invalid;
+	}
+	
+	function chk_invalid_addr() {
+		var invalid = false;
+		var addr = $("#addr").val();
+		var alert_msg = "";
+		
+		$("#msg_for_addr").addClass("hidden");
+		
+		if(addr == "") {
+			alert_msg = "주소를 입력하세요.";
+			invalid = true;
+		}
+		
+		if(invalid) {
+			$("span[name=msg_for_addr]").html(alert_msg);
+			$("#msg_for_addr").removeClass("hidden");
+		}
+		
+		return invalid;
+	}
+	
+	function chk_invalid_password() {
+		var invalid = false;
+		var password = $("#password").val();
+		var confirm = $("#confirm").val();
+		var regPwd = /^[!@#$%^&*]+(?=.*[a-zA-Z])(?=.*[!@#$5^&*()])(?=.*[0-9])/;
+		var alert_msg = "";
+		
+		$("#msg_for_password").addClass("hidden");
+		
+		if(password == "") {
+			alert_msg = "비밀번호를 입력하세요.";
+			invalid = true;
+		} else if(password.length < 8 || password.length > 20) {
+			alert_msg = "길이는 8~20로 가능합니다.";
+			invalid = true;	
+		} else if(!regPwd.test(password)) {
+			alert_msg = "비밀번호 형식을 준수해주세요.";
+			invalid = true;
+		} else if(chk_continuity()) {
+			alert_msg = "연속된 문자를 사용할 수 없습니다.";
+			invalid = true;
+		} else if(!chk_equals_password()) {
+			alert_msg = "비밀번호가 일치하지 않습니다.";
+			invalid = true;
+		}
+		
+		if(invalid) {
+			$("span[name=msg_for_password]").html(alert_msg);
+			$("#msg_for_password").removeClass("hidden");
+		}
+		
+		return invalid;
+	}
+	
+	function chk_continuity() {
+		var str = $("#password").val();
+		
+		for(i=1; i<str.length; i++) {
+			var now = str.charCodeAt(i);
+			var pre = str.charCodeAt(i-1);
+			
+			if((now == (pre - 1)) || (now == pre) || (now == (pre + 1))) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	function chk_equals_password() {
+		var password = $("#password").val();
+		var confirm = $("#confirm").val();
+		
+		if(password != confirm) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	function chk_password() {
+		$("#msg_for_password").addClass("hidden");
+		
+		if(!chk_equals_password()) {
+			$("span[name=msg_for_password]").html("비밀번호가 일치하지 않습니다.");
+			$("#msg_for_password").removeClass("hidden");
+		}
+	}
+	
+	function loginform_submit() {
+		var valid = true;
+		
+		/* if(chk_invalid_id()) {
+			valid = false;
+		}
+		
+		if(chk_invalid_name()) {
+			valid = false;
+		}
+		
+		if(chk_invalid_sex()) {
+			valid = false;
+		}
+		
+		if(chk_invalid_email()) {
+			valid = false;
+		}
+		
+		if(chk_invalid_phone()) {
+			valid = false;
+		}
+		
+		if(chk_invalid_addr()) {
+			valid = false;
+		}
+		
+		if(chk_invalid_password()) {
+			valid = false;
+		} */
+		
+		if(valid) {
+			var chkUserId_url = "/metube/chkUserId";
+			var signup_url = "/metube/signup";
+			var id = $("#id").val();
+			var data = $("#signupform").serialize();
+			console.log(id);
+			$.ajax({
+		        url: chkUserId_url,
+		        type: "POST",
+		        data: {"id": id},
+		        contentType:"json",
+		        success: function(data) {
+		        	if(data) {
+		    			$("span[name=msg_for_id]").html("사용할 수 없는 아이디입니다.");
+		    			$("#msg_for_id").removeClass("hidden");
+		            } else {      
+		            	$.ajax({
+		    		        url: signup_url,
+		    		        type: "POST",
+		    		        data: data,
+		    		        contentType:"json",
+		    		        success: function(data) {
+		    		        	if(data == "OK") {
+		    		    			alert("회원가입 완료");
+		    		    			window.location.replace("/metube");
+		    		            } else {      
+		    		            	alert("회원가입 실패");
+		    		            }
+		    		        },
+		    		        error: function(errorThrown) {
+		    		            alert("서버 오류가 발생했습니다.");
+		    		        }
+		    		    });
+		            }
+		        },
+		        error: function(errorThrown) {
+		            alert("서버 오류가 발생했습니다.");
+		        }
+		    });
+		}
+	}
+	
+	function chk_number() {
+		if((event.keyCodel < 48) || (event.keyCode > 57)) {
+			event.returnValue  = false;
+		}
+		
+		event.returnValue =  true;
+	}
+	
+	$(function() {
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
+		});
+	});
+</script>
+
+<body>
+	<div class="signup">
+		<div class="container">
+			<div id="signup" class="box">
+				<div class="initView">
+					<div class="progressbar"></div>
+
+					<div class="icon"><img th:src="@{/img/logo.png}"></div>
+
+					<div class="title">
+						<h1>MeTube 계정 만들기</h1>
+						<div class="comment">
+							<span><a th:href="@{/}">메인으로 이동</a></span>
+						</div>
+					</div>
+
+					<form id="signupform" class="form">
+						<div class="input_group">
+							<input id="id" type="text" maxlength="20" required />
+							<label for="id">아이디</label>
+							<div class="msg">
+								<div id="msg_for_id" class="alert hidden">
+									<span>!</span>
+									<span name="msg_for_id"></span>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<span class="input_group">
+								<input id="name" type="text" maxlength="20" required />
+								<label for="name">이름</label>
+								<div class="msg">
+									<div id="msg_for_name" class="alert hidden">
+										<span>!</span>
+										<span name="msg_for_name"></span>
+									</div>
+								</div>
+							</span> 
+							<span>
+								<select id="sex">
+									<option value="0">성별</option>
+									<option value="1">남자</option>
+									<option value="2">여자</option>
+								</select>
+								<div class="msg">
+									<div id="msg_for_sex" class="alert hidden">
+										<span>!</span>
+										<span>필수</span>
+									</div>
+								</div>
+							</span>
+						</div>
+						<div class="input_group">
+							<input id="email" type="text" required />
+							<label for="email">이메일</label>
+							<div class="msg">
+								<div id="msg_for_email" class="alert hidden">
+									<span>!</span>
+									<span name="msg_for_email"></span>
+								</div>
+							</div>
+						</div>
+						<div class="input_group">
+							<input id="phone" type="text" maxlength="11" onkeydown="chk_number(this);" required />
+							<label for="phone">연락처</label>
+							<div class="msg">
+								<div id="msg_for_phone" class="alert hidden">
+									<span>!</span>
+									<span name="msg_for_phone"></span>
+								</div>
+							</div>
+						</div>
+						<div class="input_group">
+							<input id="addr" type="text" amxlength="100" required />
+							<label for="addr">주소</label>
+							<div class="msg">
+								<div id="msg_for_addr" class="alert hidden">
+									<span>!</span>
+									<span name="msg_for_addr"></span>
+								</div>
+							</div>
+						</div>
+						<div class="password_group">
+							<div class="row">
+								<div class="input_group">
+									<input id="password" type="password" required />
+									<label for="password">비밀번호</label>
+								</div>
+								<div class="input_group">
+									<input id="confirm" type="password" onfocusout="chk_password()" required />
+									<label for="confirm">확인</label>
+								</div>
+								<div class="input_group">
+									<span class="password_toggle">
+										<img id="toggle" th:src="@{/img/btn_password_toggle.png}" onClick="btn_toggle()">
+										<input name="btn_path_for_open" type="hidden" th:value="@{/img/btn_password_toggle.png}" />
+										<input name="btn_path_for_close" type="hidden" th:value="@{/img/btn_password_toggle_dash.png}" />
+									</span>
+								</div>
+							</div>
+							<div class="input_group">
+									<div class="msg">
+									<div clas="hint">
+										<span>'!@#$%^&*'의 특수 문자로 시작해 숫자, 영문자, 특수문자를 포함</span>
+									</div>
+									<div id="msg_for_password" class="alert hidden">
+										<span>!</span>
+										<span name="msg_for_password"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+
+					<div class="button_group">
+						<div>
+							<a th:href="@{/login}">로그인하기</a>
+						</div>
+						<div>
+							<button id="btn_submit" onClick="loginform_submit();">확인</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

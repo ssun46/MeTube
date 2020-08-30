@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.springframework.org/security/tags">
+<head>
+<meta charset="utf-8">
+<title>미튜브</title>
+<link rel="stylesheet" th:href="@{/css/account.css}">
+</head>
+<body>
+	<div>
+		<h1>미튜브 메인 페이지</h1>
+	</div>
+	<div>
+		<span><a th:href="@{/signup}">회원가입</a></span>
+		<span><a th:href="@{/login}">로그인</a></span>
+	</div>
+</body>
+</html>

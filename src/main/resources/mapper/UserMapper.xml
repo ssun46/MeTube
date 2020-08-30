@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dev.metube.mapper.UserMapper">
+	<resultMap id="UserResultMap" type="com.dev.metube.model.UserInfo">
+		<result column="role_id" jdbcType="INTEGER" property="roleId" />
+		<result column="role" jdbcType="VARCHAR" property="role" />
+	</resultMap>
+		
+	<select id="selectUserCount" parameterType="java.lang.String" resultType="int">
+		SELECT
+			COUNT(*) cnt
+		FROM
+			tb_user
+		WHERE 1 = 1
+		<if test="value != null">
+		AND	id = #{userId}
+		</if>
+	</select>
+	
+	<select id="selectUserInfo" parameterType="java.lang.String" resultMap="UserResultMap">
+		SELECT
+			seq, id, name, password, sex, email, phone, address, status, register_date 
+		FROM
+			tb_user
+		WHERE 1 = 1
+		<if test="value != null">
+		AND	id = #{userId}
+		</if>
+	</select>
+	
+	<select id="selectRolesByUserId" parameterType="java.lang.String" resultMap="com.dev.metube.model.UserRoles">
+		SELECT
+			u.id userId, ur.id roleId, ur.role
+		FROM
+			tb_user u
+			LEFT OUTER JOIN tb_user_roles_mapping trm ON u.id = trm.user_id
+			LEFT OUTER JOIN tb_user_roles tr ON trm.role_id tr.id
+		WHERE 1 = 1
+		<if test="value != null">
+		AND	u.id = #{userId}
+		</if>
+	</select>
+	
+	<insert id="insertUser" parameterType="com.dev.metube.model.UserSearch">
+		INSERT INTO
+			tb_user (id, name, password, sex, email, phone, address, status)
+		VALUES (
+			#{id},
+			#{name},
+			#{password},
+			#{sex},
+			#{email},
+			#{phone},
+			#{address},
+			#{status}
+			)
+	</insert>
+</mapper>

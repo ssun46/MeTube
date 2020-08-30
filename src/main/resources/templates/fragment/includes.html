@@ -1,0 +1,15 @@
+<!-- <!DOCTYPE html> -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
+	<head th:fragment="heads">
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	
+	<meta name="_csrf" th:content="${_csrf.token}">
+	<meta name="_csrf_header" th:content="${_csrf.headerName}">
+	
+	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.js}"></script>
+	
+	<title>미튜브</title>
+	
+		
