@@ -21,13 +21,16 @@ public class UserLoginDetailsService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-		UserInfo user = userService.getUserWithRolesById(userId);
+		UserInfo user = userService.getUserById(userId);
 		return new User(user.getName(), user.getPassword(), getAuthorities(user));
 	}
 	
 	public Collection<? extends GrantedAuthority> getAuthorities(UserInfo user) {
-		String userRole = user.getRoles().getRole();
-		Collection<GrantedAuthority> authority = AuthorityUtils.createAuthorityList(userRole);
+		String[] roleList = new String[1];
+		roleList[0] = user.getUserRole();
+		
+		System.out.println("user role is " + roleList[0]);
+		Collection<GrantedAuthority> authority = AuthorityUtils.createAuthorityList(roleList);
 		return authority;
 	}
 }

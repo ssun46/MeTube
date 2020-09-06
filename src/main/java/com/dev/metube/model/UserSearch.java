@@ -7,7 +7,7 @@ public class UserSearch {
 	private int sex;
 	private String email;
 	private String phone;
-	private String addr;
+	private String address;
 	
 	public String getId() {
 		return id;
@@ -57,11 +57,11 @@ public class UserSearch {
 		this.phone = phone;
 	}
 	
-	public String getAddr() {
-		return addr;
+	public String getAddress() {
+		return address;
 	}
 	
-	public void setAddr(String addr) {
-		this.addr = addr;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }

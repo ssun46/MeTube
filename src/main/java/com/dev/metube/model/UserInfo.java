@@ -13,21 +13,7 @@ public class UserInfo {
 	private String address;
 	private int status;
 	private Date register_date;
-	
-	private UserRoles roles;
-	
-	UserInfo(UserInfo user) {
-		this.seq = user.getSeq();
-		this.id = user.getId();
-		this.name = user.getName();
-		this.password = user.getPassword();
-		this.sex = user.getSex();
-		this.email = user.getPhone();
-		this.phone = user.getPhone();
-		this.address = user.getAddress();
-		this.status = user.getStatus();
-		this.register_date = user.getRegister_date();
-	}
+	private String userRole;
 	
 	public Long getSeq() {
 		return seq;
@@ -109,13 +95,12 @@ public class UserInfo {
 	public void setRegister_date(Date register_date) {
 		this.register_date = register_date;
 	}
-	
-	public UserRoles getRoles() {
-		return roles;
+
+	public String getUserRole() {
+		return userRole;
 	}
 
-	public void setRoles(UserRoles roles) {
-		this.roles = roles;
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
 	}
-
 }

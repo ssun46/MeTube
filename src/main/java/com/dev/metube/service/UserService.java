@@ -18,10 +18,12 @@ public class UserService {
 		return userMapper.selectUserCount(userId);
 	}
 	
-	public UserInfo getUserWithRolesById(String userId) {
-		UserInfo user = userMapper.selectUserInfo(userId);
-		user.setRoles(userMapper.selectRolesByUserId(userId));
-		return user;
+	public UserInfo getUserInfo(UserSearch search) {
+		return userMapper.selectUser(search);
+	}
+	
+	public UserInfo getUserById(String userId) {
+		return userMapper.selectUserById(userId);
 	}
 	
 	public int setUser(UserSearch search) {
