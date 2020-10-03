@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+.bg-white-gray {background-color: red;}
+
+/* Large devices (desktops, 992px and down) */
+@media (max-width: 991px) {
+}
+
+/* Medium devices (tablets, 768px and down) */
+@media (max-width: 767px) {
+}
+
+/* Small devices (landscape phones, 576px and down) */
+@media (max-width: 575px) {
+
+}

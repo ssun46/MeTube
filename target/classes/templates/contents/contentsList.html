@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	
-	<div th:replace="fragment/includes :: heads"></div>
-
-	<link th:href="@{/css/style.css}" rel="stylesheet" />
+<head th:replace="fragment/includes :: heads">
 </head>
 <body>
-	<div>
-		<th:block th:include="fragment/nav :: topNav" ></th:block>
-	</div>
-	<div>
-		<h1>미튜브 메인 페이지</h1>
-	</div>
-	<div>
+	<div th:replace="fragment/header :: header"></div>
+	<div style="background-color:red">
 		<span><a th:href="@{/signup}">회원가입</a></span>
 		<span><a th:href="@{/login}">로그인</a></span>
+		<!-- <div sec:authorize="isAuthendicated()" th:text="${#authentication.getPrincipal().getUsername()}"></div> -->
 	</div>
+	
+	<script th:inline="javascript">
+		$(function() {
+		});
+	</script>
 </body>
 </html>

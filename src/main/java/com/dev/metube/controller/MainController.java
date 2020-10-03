@@ -1,7 +1,5 @@
 package com.dev.metube.controller;
 
-import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.dev.metube.model.UserInfo;
-import com.dev.metube.model.UserSearch;
+import com.dev.metube.model.LoginUserDetails;
+import com.dev.metube.model.User;
 import com.dev.metube.service.UserLoginDetailsService;
 import com.dev.metube.service.UserService;
 
@@ -25,7 +23,12 @@ public class MainController {
 	
 	@RequestMapping("/")
 	public String contentList() {
-		return "/contents/contentsList";
+		return "contents/contentsList";
+	}
+	
+	@RequestMapping("/chennel")
+	public String chennel() {
+		return "chennel/chennel_home";
 	}
 	
 	@RequestMapping("/login")
@@ -35,7 +38,7 @@ public class MainController {
 	}
 	
 	@RequestMapping("/login/processing")
-	public String signinByPost(@ModelAttribute UserInfo userInfo) {
+	public String signinByPost(@ModelAttribute LoginUserDetails user) {
 		System.out.println("Login Processing controller Invorked");
 		UserLoginDetailsService userDetails = (UserLoginDetailsService) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println(userDetails);
@@ -48,14 +51,14 @@ public class MainController {
 	}
 	
 	@PostMapping("/signup")
-	public String signupByPost(UserSearch search) {
-		userService.setUser(search);
+	public String signupByPost(User user) {
+		userService.createUser(user);
 		return "redirect:/";
 	}
 	
-	@ResponseBody
-	@GetMapping("/chkUserId")
-	public boolean getUserCount(@RequestParam HashMap<String, Object> param) {
-		return userService.getUserCountById((String) param.get("id")) == 0 ? false : true;
+	
+	@PostMapping("/checkUserExist")
+	public @ResponseBody boolean getUserCount(@RequestParam("username") String username) {
+		return userService.checkUserExist(username);
 	}
 }

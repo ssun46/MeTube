@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
-
-	<div th:replace="fragment/includes :: heads"></div>
+<head>
+	<meta name="viewport" content="width=device-width">
 	
-	<link th:href="@{/css/account.css}" rel="stylesheet" >
+	<link rel="shortcut icon" th:href="@{/img/logo_metube.ico}"/>
 	
+	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<link th:href="@{/css/account-ui.css}" rel="stylesheet" >
 </head>
 
 <script th:inline="javascript">
 	var login_url = /*[[@{/login/processing}]]*/;
 	
 	function chk_id() {
-		var id = $("#id").val();
+		var id = $("#username").val();
 		
-		$("#msg_for_id").addClass("hidden");
+		$("#msg_for_username").addClass("hidden");
 		if(id.length == 0) {
-			$("#msg_for_id").removeClass("hidden");
+			$("#msg_for_username").removeClass("hidden");
 			return false;
 		}
 		
@@ -63,7 +65,7 @@
 
 					<div class="icon">
 						<div class="align-center">
-							<span><img th:src="@{/img/logo.png}"></span>
+							<span class="logo"><img th:src="@{/img/img_logo.png}"></span>
 						</div>
 					</div>
 
@@ -76,10 +78,10 @@
 
 					<form id="loginform" class="form">
 						<div class="input_group">
-							<input id="id" name="id" type="text" required />
-							<label for="id">아이디</label>
+							<input id="username" name="username" type="text" required />
+							<label for="username">아이디</label>
 							<div class="msg">
-								<div id="msg_for_id" class="alert hidden">
+								<div id="msg_for_username" class="alert hidden">
 									<span>!</span> <span>아이디를 입력하세요.</span>
 								</div>
 							</div>

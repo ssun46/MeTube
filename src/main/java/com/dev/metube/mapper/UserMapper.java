@@ -2,13 +2,13 @@ package com.dev.metube.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.dev.metube.model.UserInfo;
-import com.dev.metube.model.UserSearch;
+import com.dev.metube.model.User;
+import com.dev.metube.type.EnumUserStatus;
+import com.dev.metube.type.EnumUserType;
 
 @Mapper
 public interface UserMapper {
-	public int selectUserCount(String userId);
-	public UserInfo selectUser(UserSearch search);
-	public UserInfo selectUserById(String userId);
-	public int insertUser(UserSearch search);
+	public int insert(User search);
+	public User selectByUsername(String username);
+	public boolean selectUserExist(String username);
 }

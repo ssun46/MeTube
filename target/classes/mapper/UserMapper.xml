@@ -1,61 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dev.metube.mapper.UserMapper">
-	<resultMap id="UserResultMap" type="com.dev.metube.model.UserInfo">
-		<result column="role_name" jdbcType="VARCHAR" property="userRole"/>
+	<resultMap id="UserResultMap" type="com.dev.metube.model.User">
+		<result column="sex" jdbcType="SMALLINT" property="sex" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+		<result column="type" jdbcType="SMALLINT" property="type" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+		<result column="status" jdbcType="SMALLINT" property="status" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
 	</resultMap>
-		
-	<select id="selectUserCount" parameterType="java.lang.String" resultType="int">
+	
+	<insert id="insert" parameterType="com.dev.metube.model.User">
+		INSERT INTO tb_user (
+			username,
+			password,
+			display_name,
+			sex,
+			phone,
+			address,
+			register_date
+		)
+		VALUES (
+			#{username},
+			#{password},
+			#{display_name},
+			#{sex},
+			#{phone},
+			#{address},
+			now()
+		)
+	</insert>
+	
+	<select id="selectByUsername" parameterType="string" resultMap="UserResultMap">
 		SELECT
-			COUNT(*) cnt
+			id, username, password, display_name, sex, phone, address, register_date, type, status
 		FROM
 			tb_user
-		WHERE 1 = 1
-		<if test="value != null">
-		AND	id = #{userId}
-		</if>
+		WHERE
+			username LIKE #{username}
 	</select>
 	
-	<select id="selectUser" parameterType="com.dev.metube.model.UserSearch" resultMap="UserResultMap">
-		SELECT
-			u.seq, u.id userId, u.name, u.password, u.sex, u.email, u.phone, u.address, u.register_date,
-			ur.role role_name
-		FROM
-			tb_user u
-		LEFT OUTER JOIN tb_user_roles ur ON u.role = ur.seq
-		WHERE 1 = 1
-		<if test="userId != null">
-		AND	id = #{userId}
-		</if>
-		<if test="password != null">
-		AND	password = #{password}
-		</if>
+	<select id="selectUserExist" parameterType="string" resultType="boolean">
+		SELECT EXISTS (
+			SELECT
+				id
+			FROM
+				tb_user
+			WHERE
+				username LIKE #{username}
+		)
 	</select>
-	
-	<select id="selectUserById" parameterType="java.lang.String" resultMap="UserResultMap">
-		SELECT
-			u.seq, u.id userId, u.name, u.password, u.sex, u.email, u.phone, u.address, u.register_date,
-			ur.role role_name
-		FROM
-			tb_user u
-		LEFT OUTER JOIN tb_user_roles ur ON u.role = ur.seq
-		WHERE 1 = 1
-		<if test="value != null">
-		AND	id = #{userId}
-		</if>
-	</select>
-	
-	<insert id="insertUser" parameterType="com.dev.metube.model.UserSearch">
-		INSERT INTO
-			tb_user (id, name, password, sex, email, phone, address)
-		VALUES (
-			#{id},
-			#{name},
-			#{password},
-			#{sex},
-			#{email},
-			#{phone},
-			#{address}
-			)
-	</insert>
 </mapper>
