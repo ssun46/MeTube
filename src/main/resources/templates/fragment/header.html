@@ -5,7 +5,7 @@
 	
 	<body>
 		<div id="header" th:fragment="header">
-			<nav class="row justify-content-between navbar navbar-area navbar-expand bg-white">
+			<nav class="row justify-content-between navbar navbar-area navbar-expand bg-white fixed-top">
 				<div class="col-lg-3 col-md-8 text-left">
 					<a class="navbar-brand on-md"><img th:src="@{/img/button_top_nav_menu.png}"></a>
 					<a th:href="@{/}" class="top-logo"><img th:src="@{/img/img_logo_with_title.png}"></a>
@@ -36,22 +36,17 @@
 						<img th:src="@{/img/button_profile_dark.png}">
 					</a>
 					<div class="dropdown-menu" aria-labelledby="my_menu_dropdown" sec:authorize="isAuthenticated()">
-					    <span class="row dropdown-item-text">
-					    	<div class="row">
-					    		<div class="col-3">
-					    		123
-					    		</div>
-					    		<div class="col-9">
-					    			<div class="row pb-2">
-					    				<span class="font-14" sec:authentication="principal.display_name"></span>
-					    				<span class="font-14" sec:authentication="name"></span>
-					    			</div>
-					    			<div class="row">
-					    				<a class="text-primary font-14">계정 관리</a>
-					    				</div>
-					    		</div>
+					    <div class="row dropdown-item-text">
+					    	<div class="px-3">
+				    			<div class="pb-2">
+				    				<div class="font-14" sec:authentication="principal.display_name"></div>
+				    				<div class="font-14" sec:authentication="name"></div>
+				    			</div>
+				    			<div>
+				    				<a class="text-primary font-14">계정 관리</a>
+			    				</div>
 					    	</div>
-					    </span>
+					    </div>
   						<div class="dropdown-divider"></div>
 				    	<a th:href="@{/chennel}" class="dropdown-item py-2">
 					    	<img th:src="@{/img/button_profile_dark.png}">

@@ -5,6 +5,7 @@ import java.util.Date;
 import com.dev.metube.type.EnumSex;
 import com.dev.metube.type.EnumUserStatus;
 import com.dev.metube.type.EnumUserType;
+import com.dev.metube.type.EnumYn;
 
 public class User {
 	private int id;
@@ -14,6 +15,8 @@ public class User {
 	private EnumSex sex;
 	private String phone;
 	private String address;
+	private EnumYn thumbnail_yn;
+	private String thumbnail_path;
 	private EnumUserType type;
 	private EnumUserStatus status;
 	private Date register_date;
@@ -60,6 +63,18 @@ public class User {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	public EnumYn getThumbnail_yn() {
+		return thumbnail_yn;
+	}
+	public void setThumbnail_yn(EnumYn thumbnail_yn) {
+		this.thumbnail_yn = thumbnail_yn;
+	}
+	public String getThumbnail_path() {
+		return thumbnail_path;
+	}
+	public void setThumbnail_path(String thumbnail_path) {
+		this.thumbnail_path = thumbnail_path;
+	}
 	public EnumUserType getType() {
 		return type;
 	}
@@ -83,8 +98,9 @@ public class User {
 	public String toString() {
 		return ">>> Model USER : ["
 				+ "id= " + id + ", username= " + username + ", password= " + password + ", display_name= " + display_name
-				+ ", sex= " + sex.name() + ", phone= " + phone + ", address= " + address + ", type= " + type.name()
-				+ ", status= " + status.name() + ", register_date= " + register_date
+				+ ", sex= " + sex.name() + ", phone= " + phone + ", address= " + address
+				+ ", thumbnail_yn= " + thumbnail_yn.name() + ", thumbnail_path= " + thumbnail_path
+				+ ", type= " + type.name() + ", status= " + status.name() + ", register_date= " + register_date
 				+ "]";
 	}
 }

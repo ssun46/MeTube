@@ -27,8 +27,12 @@ public class UserService {
 		return userMapper.insert(user);
 	}
 	
-	public User getUserInfoByUsername(String username) {
-		return userMapper.selectByUsername(username);
+	public User getLoginUserByUsername(String username) {
+		return userMapper.selectLoginUserByUsername(username);
+	}
+	
+	public User getUserByUsername(String username) {
+		return userMapper.selectWithoutPasswordByUsername(username);
 	}
 	
 	public boolean checkUserExist(String username) {

@@ -3,6 +3,7 @@
 <mapper namespace="com.dev.metube.mapper.UserMapper">
 	<resultMap id="UserResultMap" type="com.dev.metube.model.User">
 		<result column="sex" jdbcType="SMALLINT" property="sex" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+		<result column="thumbnail_yn" jdbcType="SMALLINT" property="thumbnail_yn" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
 		<result column="type" jdbcType="SMALLINT" property="type" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
 		<result column="status" jdbcType="SMALLINT" property="status" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
 	</resultMap>
@@ -28,9 +29,18 @@
 		)
 	</insert>
 	
-	<select id="selectByUsername" parameterType="string" resultMap="UserResultMap">
+	<select id="selectLoginUserByUsername" parameterType="string" resultMap="UserResultMap">
 		SELECT
-			id, username, password, display_name, sex, phone, address, register_date, type, status
+			id, username, password, display_name, type
+		FROM
+			tb_user
+		WHERE
+			username LIKE #{username}
+	</select>
+	
+	<select id="selectWithoutPasswordByUsername" parameterType="string" resultMap="UserResultMap">
+		SELECT
+			id, username, display_name, sex, phone, address, register_date, thumbnail_yn, thumbnail_path, type, status
 		FROM
 			tb_user
 		WHERE

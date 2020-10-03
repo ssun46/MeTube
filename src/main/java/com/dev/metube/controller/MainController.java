@@ -3,6 +3,7 @@ package com.dev.metube.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,8 +28,11 @@ public class MainController {
 	}
 	
 	@RequestMapping("/chennel")
-	public String chennel() {
-		return "chennel/chennel_home";
+	public String chennel(Model model) {
+		LoginUserDetails userDetails = (LoginUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = userService.getUserByUsername(userDetails.getUsername());
+		model.addAttribute("user", user);
+		return "channel/channel_menu";
 	}
 	
 	@RequestMapping("/login")
@@ -55,7 +59,6 @@ public class MainController {
 		userService.createUser(user);
 		return "redirect:/";
 	}
-	
 	
 	@PostMapping("/checkUserExist")
 	public @ResponseBody boolean getUserCount(@RequestParam("username") String username) {

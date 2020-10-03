@@ -1,0 +1,48 @@
+@charset "utf-8";
+
+.bg-gray {background-color: rgb(230 230 230);}
+.bg-white-gray {background-color: #f9f9f9;}
+
+.btn-deepblue {color: #fff; background-color: #065fd4; border-radius: 2px;}
+.btn-deepblue:hover, .btn-deepblue:focus, .btn-deepblue:active {outline: none; box-shadow: none;}
+
+.nav-item {width: 100px;}
+.nav-item a {color: #606060; font-size: 14px;}
+.nav-item .active, .nav-item:hover {background-color: transparent !important;}
+.nav-tabs {border: 0;}
+.nav-tabs .nav-link {border: 0; margin-bottom: 0px;}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {border: 0;}
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {border: 0;}
+.nav-tabs .active {border-bottom: solid 3px #606060 !important; transition: all 0s;}
+.nav-link:hover, .nav-link.active {color: #030303 !important;}
+
+.overlay {background-color: #0000005c; width:70px; height: 70px; opacity: 0; position: relative; top: -34px; left: 35px; transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); text-align: center;}
+.overlay img {width: 30px;}
+
+.px-6 {padding-left: 15rem !important; padding-right: 15rem !important;}
+.px-7 {padding-left: 16rem !important; padding-right: 16rem !important;}
+
+.thumbnail-area {width: 70px; height: 70px;}
+.thumbnail-area a {font-size: 40px; text-align: center; vertical-align: baseline;}
+.thumbnail-area:hover .image {opacity: 0.3;}
+.thumbnail-area:hover .overlay {opacity: 1;}
+
+.top-offset {position: relative; top: 52px;}
+
+/* Large devices (desktops, 992px and down) */
+@media (max-width: 991px) {
+	.px-6 {padding-left: 6rem !important; padding-right: 6rem !important;}
+	.px-7 {padding-left: 7rem !important; padding-right: 7rem !important;}
+}
+
+/* Medium devices (tablets, 768px and down) */
+@media (max-width: 767px) {		
+	.px-6 {padding-left: 2rem !important; padding-right: 2rem !important;}
+	.px-7 {padding-left: 3rem !important; padding-right: 3rem !important;}
+}
+
+/* Small devices (landscape phones, 576px and down) */
+@media (max-width: 575px) {
+	.px-6 {padding-left: 1rem !important; padding-right: 1rem !important;}
+	.px-7 {padding-left: 2rem !important; padding-right: 2rem !important;}
+}
