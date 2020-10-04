@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	
+<head th:replace="fragment/includes :: heads"></head>
+    
+<link rel="stylesheet" th:href="@{/css/contents-ui.css}">
+
+<body>
+	<div th:replace="fragment/header :: header"></div>
+	
+	<div class="top-offset bg-white-gray vh-top">
+		<div class="d-flex row m-0 media-area">
+			<div class="col-12" style="background-color: rgb(15 15 15);">
+				<div class="d-block text-center">
+					<img th:src="@{/img/sample_thumbnail.png}" style="max-width: 100%">
+				</div>
+			</div>
+		</div>
+		
+		<div class="px-5 py-3">
+			<div>
+				<div class="tag">
+					<a>#태그1</a>
+					<a>#태그2</a>
+					<a>#태그3</a>
+				</div>
+				<h5>[2020 LoL 월드 챔피언십] 그룹 스테이지 2일차</h5>
+			</div>
+			<div class="row pb-3 border-bottom f-gray">
+				<div class="col-lg-4 col-md-12">
+					<span>조회수 5,323,232회</span>
+					<span>·</span>
+					<span>2020. 10. 01</span>
+				</div>
+				<div class="col-lg-8 col-md-12 text-right">
+					<span class="icon px-2"><a><img th:src="@{/img/button_like.png}" class="pr-2">1.3만</a></span>
+					<span class="icon px-2"><a><img th:src="@{/img/button_dislike.png}" class="pr-2">455</a></span>
+					<span class="icon px-2"><a><img th:src="@{/img/button_add.png}" class="pr-2">저장</a></span>
+				</div>
+			</div>
+
+			<div class="media py-3 border-bottom">
+				<!-- <img src="..." class="align-self-start round-circle mr-3" alt="..."> -->
+				<span class="text-center align-items-center rounded-circle mr-3" th:text="이" style="color: #fff; background-color: blue; width:50px; height: 50px;"></span>
+				<div class="row media-body">
+					<div class="col-8">
+						<h5 class="mt-0">Media heading</h5>
+						<h6 class="f-gray">구독자 606명</h6>
+					</div>
+					<div class="col-4 text-right">
+						<input type="button" class="btn btn-danger" value="구독"/>
+					</div>
+					<div class="pt-3 px-3">
+						Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+						scelerisque ante sollicitudin. Cras purus odio, vestibulum in
+						vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+						vulputate fringilla. Donec lacinia congue felis in faucibus.
+					</div>
+				</div>
+			</div>
+			
+			<div class="px-3 py-3">
+				<div class="row">
+					<span><h5 style="margin-bottom: 0;">댓글 1,230개</h5></span>
+					<span class="icon px-2 f-14 f-gray align-items-center">
+						<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<img th:src="@{/img/button_sort.png}" class="px-2">정렬 기준
+						</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item">인기 댓글순</a>
+							<a class="dropdown-item">최근 날짜순</a>
+						</div>
+					</span>
+				</div>
+				
+				<div class="row py-3 align-items-baseline">
+					<!-- <img src="..." class="align-self-start round-circle mr-3" alt="..."> -->
+					<span class="text-center align-items-center rounded-circle mr-3" th:text="이" style="color: #fff; background-color: blue; width:50px; height: 50px;"></span>
+					<span class="col px-0">
+						<input type="text" class="border-top-0 border-left-0 border-right-0 border-bottom bg-transparent" placeholder="공개 댓글 추가..." style="width: 100%;"/>
+					</span>
+				</div>
+			</div>
+			
+			<div class="media py-1 pb-4">
+				<!-- <img src="..." class="align-self-start round-circle mr-3" alt="..."> -->
+				<span class="text-center align-items-center rounded-circle mr-3" th:text="이" style="color: #fff; background-color: blue; width:50px; height: 50px;"></span>
+				<div class="row media-body">
+					<div class="col-12">
+						<span class="mt-0 pr-2 font-weight-bold">Media heading</span>
+						<span class="f-gray">10개월 전</span>
+					</div>
+					<div class="col-12 pt-2 px-3">
+						Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+						scelerisque ante sollicitudin. Cras purus odio, vestibulum in
+						vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+						vulputate fringilla. Donec lacinia congue felis in faucibus.
+					</div>
+					<div class="col-12 pt-2">
+						<span class="icon"><a><img th:src="@{/img/button_like.png}" class="pr-2">1.3만</a></span>
+						<span class="icon pl-2"><a><img th:src="@{/img/button_dislike.png}" class="pr-2">455</a></span>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="media py-1 pb-4">
+				<!-- <img src="..." class="align-self-start round-circle mr-3" alt="..."> -->
+				<span class="text-center align-items-center rounded-circle mr-3" th:text="이" style="color: #fff; background-color: blue; width:50px; height: 50px;"></span>
+				<div class="row media-body">
+					<div class="col-12">
+						<span class="mt-0 pr-2 font-weight-bold">Media heading</span>
+						<span class="f-gray">10개월 전</span>
+					</div>
+					<div class="col-12 pt-2 px-3">
+						Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+						scelerisque ante sollicitudin. Cras purus odio, vestibulum in
+						vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+						vulputate fringilla. Donec lacinia congue felis in faucibus.
+					</div>
+					<div class="col-12 pt-2">
+						<span class="icon"><a><img th:src="@{/img/button_like.png}" class="pr-2">1.3만</a></span>
+						<span class="icon pl-2"><a><img th:src="@{/img/button_dislike.png}" class="pr-2">455</a></span>
+					</div>
+				</div>
+			</div>
+			<div class="media py-1 pb-4">
+				<!-- <img src="..." class="align-self-start round-circle mr-3" alt="..."> -->
+				<span class="text-center align-items-center rounded-circle mr-3" th:text="이" style="color: #fff; background-color: blue; width:50px; height: 50px;"></span>
+				<div class="row media-body">
+					<div class="col-12">
+						<span class="mt-0 pr-2 font-weight-bold">Media heading</span>
+						<span class="f-gray">10개월 전</span>
+					</div>
+					<div class="col-12 pt-2 px-3">
+						Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+						scelerisque ante sollicitudin. Cras purus odio, vestibulum in
+						vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+						vulputate fringilla. Donec lacinia congue felis in faucibus.
+					</div>
+					<div class="col-12 pt-2">
+						<span class="icon"><a><img th:src="@{/img/button_like.png}" class="pr-2">1.3만</a></span>
+						<span class="icon pl-2"><a><img th:src="@{/img/button_dislike.png}" class="pr-2">455</a></span>
+					</div>
+				</div>
+			</div>
+			<div class="media py-1 pb-4">
+				<!-- <img src="..." class="align-self-start round-circle mr-3" alt="..."> -->
+				<span class="text-center align-items-center rounded-circle mr-3" th:text="이" style="color: #fff; background-color: blue; width:50px; height: 50px;"></span>
+				<div class="row media-body">
+					<div class="col-12">
+						<span class="mt-0 pr-2 font-weight-bold">Media heading</span>
+						<span class="f-gray">10개월 전</span>
+					</div>
+					<div class="col-12 pt-2 px-3">
+						Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+						scelerisque ante sollicitudin. Cras purus odio, vestibulum in
+						vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+						vulputate fringilla. Donec lacinia congue felis in faucibus.
+					</div>
+					<div class="col-12 pt-2">
+						<span class="icon"><a><img th:src="@{/img/button_like.png}" class="pr-2">1.3만</a></span>
+						<span class="icon pl-2"><a><img th:src="@{/img/button_dislike.png}" class="pr-2">455</a></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="align-items-center">
+			<nav aria-label="Page navigation">
+				<ul class="pagination">
+					<li class="page-item"><a class="page-link"  aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+					</a></li>
+					<li class="page-item"><a class="page-link" >1</a></li>
+					<li class="page-item"><a class="page-link" >2</a></li>
+					<li class="page-item"><a class="page-link" >3</a></li>
+					<li class="page-item"><a class="page-link" >4</a></li>
+					<li class="page-item"><a class="page-link" >5</a></li>
+					<li class="page-item"><a class="page-link" >6</a></li>
+					<li class="page-item"><a class="page-link" >7</a></li>
+					<li class="page-item"><a class="page-link" >8</a></li>
+					<li class="page-item"><a class="page-link"  aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+					</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</body>
+</html>

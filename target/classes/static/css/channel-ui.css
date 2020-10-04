@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-.bg-gray {background-color: rgb(230 230 230);}
+.bg-gray {background-color: #eee;}
 .bg-white-gray {background-color: #f9f9f9;}
 
 .btn-deepblue {color: #fff; background-color: #065fd4; border-radius: 2px;}
@@ -29,6 +29,8 @@
 
 .top-offset {position: relative; top: 52px;}
 
+.vh-top {height: calc(100vh - 90px);}
+
 /* Large devices (desktops, 992px and down) */
 @media (max-width: 991px) {
 	.px-6 {padding-left: 6rem !important; padding-right: 6rem !important;}
@@ -43,6 +45,11 @@
 
 /* Small devices (landscape phones, 576px and down) */
 @media (max-width: 575px) {
-	.px-6 {padding-left: 1rem !important; padding-right: 1rem !important;}
+	.nav-item {width: 75px;}
+	.nav-item a {font-size: 10px;}
+	
+	.sm-mx-n3 {margin-left: -3px; margin-right: -3px;}
+	
+	.px-6 {padding-left: 6px !important; padding-right: 6px !important;}
 	.px-7 {padding-left: 2rem !important; padding-right: 2rem !important;}
 }

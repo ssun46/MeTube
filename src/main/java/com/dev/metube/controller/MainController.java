@@ -22,19 +22,11 @@ public class MainController {
 	@Autowired
 	UserService userService;
 	
-	@RequestMapping("/")
-	public String contentList() {
-		return "contents/contentsList";
+	@RequestMapping
+	public String main() {
+		return "contents/contents_list";
 	}
-	
-	@RequestMapping("/chennel")
-	public String chennel(Model model) {
-		LoginUserDetails userDetails = (LoginUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		User user = userService.getUserByUsername(userDetails.getUsername());
-		model.addAttribute("user", user);
-		return "channel/channel_menu";
-	}
-	
+		
 	@RequestMapping("/login")
 	public String signinByGet() {
 		System.out.println("Login controller Invorked");

@@ -1,0 +1,41 @@
+@charset "utf-8";
+
+a, a:hover {color: #212529;}
+a:hover {text-decoration: none;}
+.align-items-center {display: flex; align-items: center; justify-content: center;}
+
+.btn {border-radius: 2px;}
+.bg-white-gray, .card {background-color: #f9f9f9;}
+
+.card {border: 0;}
+.card-body {padding-left: 0; padding-right: 0; padding-top: 10px;}
+
+.f-14 {font-size: 14px;}
+.f-gray, .icon {color: #606060;}
+
+.icon img {width: 30px;}
+input:focus {outline: none;}
+
+.media-area {width: calc( 100% / var(--ytd-rich-grid-items-per-row) - var(--ytd-rich-grid-item-margin) - 0.01px );}
+.media-area .col-12 {padding-left: 0; padding-right: 0;}
+
+.tag {color: #065fd4;}
+.top-offset {position: relative; top: 52px;}
+
+.thumbnail-img {max-width: var(--yt-img-max-width, 100%); max-height: var(--yt-img-max-height, none);}
+
+.vh-top {min-height: calc(100vh - 52px);}
+
+/* Large devices (desktops, 992px and down) */
+@media (max-width: 991px) {
+}
+
+/* Medium devices (tablets, 768px and down) */
+@media (max-width: 767px) {
+	.px-5 {padding-left: 0.5rem !important; padding-right: 0.5rem !important;}
+}
+
+/* Small devices (landscape phones, 576px and down) */
+@media (max-width: 575px) {
+	.px-5 {padding-left: 10px !important; padding-right: 10px !important;}
+}
