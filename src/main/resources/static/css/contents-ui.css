@@ -20,6 +20,9 @@ input:focus {outline: none;}
 .media-area .col-12 {padding-left: 0; padding-right: 0;}
 
 .tag {color: #065fd4;}
+
+textarea:focus {outline: none;}
+
 .top-offset {position: relative; top: 52px;}
 
 .thumbnail-img {max-width: var(--yt-img-max-width, 100%); max-height: var(--yt-img-max-height, none);}
