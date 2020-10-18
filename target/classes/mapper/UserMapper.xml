@@ -57,4 +57,19 @@
 				username LIKE #{username}
 		)
 	</select>
+	
+	<select id="selectProfilePath" parameterType="Integer" resultType="String">
+		SELECT thumbnail_path
+		FROM tb_user
+		WHERE id = #{id}
+	</select>
+	
+	<update id="profilePathUpdate" parameterType="com.dev.metube.model.User">
+		UPDATE tb_user
+		SET thumbnail_yn = 1,
+			thumbnail_path = #{thumbnail_path}
+		WHERE
+			id = #{id}
+	</update>
+
 </mapper>

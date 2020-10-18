@@ -38,4 +38,12 @@ public class UserService {
 	public boolean checkUserExist(String username) {
 		return userMapper.selectUserExist(username);
 	}
+	
+	public String getThumbnailPath(Integer id) {
+		return userMapper.selectProfilePath(id);
+	}
+	
+	public int updateProfileThumbnail(User user) {
+		return userMapper.profilePathUpdate(user);
+	}
 }

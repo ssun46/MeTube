@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
+	<head th:replace="fragment/includes :: heads"></head>
+	
+	<link rel="stylesheet" th:href="@{/css/channel-ui.css}">
+			
+	<body>
+		<div th:fragment="profile_upload">
+			<div id="profile_upload_dialog" class="align-items-center">
+				<a style="width: 300px;">
+					<input class="profile_filepond filepond" name="profile_filepond" type="file" accept="image/png, image/jpeg, image/gif" />
+					</a>
+			</div>
+		</div>
+	</body>
+</html>

@@ -3,9 +3,9 @@
 	
 <head th:replace="fragment/includes :: heads"></head>
 
-<script th:src="@{/js/channel.js}"></script>
-
 <link rel="stylesheet" th:href="@{/css/channel-ui.css}">
+
+<script th:src="@{/js/channel.js}"></script>
 
 <body>
 	<div th:replace="fragment/header :: header"></div>
@@ -14,18 +14,16 @@
 		<div class="px-7 pt-3" style="padding-bottom: 4px;">
 			<div class="media align-items-center" style="width: 100%;">
 				<div class="thumbnail-area">
-					<a class="d-block rounded-circle bg-success font-weight-bold text-white" style="height: 100%;"
+					<a class="text-center align-items-center rounded-circle bg-success font-weight-bold text-white" style="width: 100%; height: 100%;"
 						th:alt="${user.display_name}" th:text="${#strings.substring(user.display_name, 0, 1)}"
 					 	th:if="${user.thumbnail_yn.toString()} == 'N'">
 				 	</a> 	
 					<a>
-						<img src="..." class="align-self-center rounded-circle" th:alt="${user.display_name}"
+						<img th:src="@{/profile/thumbnail/} + ${user.id}" class="align-self-center rounded-circle" style="width: 100%; height: 100%;"
 							th:unless="${user.thumbnail_yn.toString()} == 'N'">
 					</a>
-					<a onclick="javascript:thumbnail_upload();">
-						<div class="overlay rounded-circle align-items-center">
-							<img th:src="@{/img/button_camera.png}">
-						</div>
+					<a id="profile_upload_button" onclick="javascript:thumbnail_upload();" class="overlay rounded-circle align-items-center">
+						<img th:src="@{/img/button_camera.png}">
 					</a>
 				</div>
 				<div class="d-flex justify-content-between media-body pl-3">
@@ -79,5 +77,97 @@
 			</div>
 		</div>
 	</div>
+	
+	<div th:replace="/fragment/popups :: profile_upload"></div>
 </body>
+
+<script th:inline="javascript">
+	var uploadUrl = /*[[@{/upload}]]*/;
+
+	//Register the plugin
+	FilePond.registerPlugin(
+		FilePondPluginImagePreview,
+		FilePondPluginImageResize,
+		FilePondPluginFileValidateType,
+		FilePondPluginFileValidateSize
+	);
+	
+	FilePond.setOptions({
+		labelIdle: '프로필 이미지 업로드<span class="filepond--label-action"></span>',
+		server: {
+        	process:(fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
+
+                // fieldName is the name of the input field
+                // file is the actual file object to send
+                const formData = new FormData();
+                formData.append(fieldName, file, file.name);
+
+                const request = new XMLHttpRequest();
+                request.open('POST', uploadUrl + '/profile/image');
+
+                // Should call the progress method to update the progress to 100% before calling load
+                // Setting computable to false switches the loading indicator to infinite mode
+                request.upload.onprogress = (e) => {
+                    progress(e.lengthComputable, e.loaded, e.total);
+                };
+
+                // Should call the load method when done and pass the returned server file id
+                // this server file id is then used later on when reverting or restoring a file
+                // so your server knows which file to return without exposing that info to the client
+                request.onload = function() {
+                    if (request.status >= 200 && request.status < 300) {
+                        // the load method accepts either a string (id) or an object
+                        load(request.responseText);
+                        if(request.responseText) {
+                        	alert("프로필 이미지가 업로드 되었습니다.");
+                        	location.reload(true);
+                        }
+                    }
+                    else {
+                        // Can call the error method if something is wrong, should exit after
+                        error('oh no');
+                    }
+                };
+
+                request.send(formData);
+                
+                // Should expose an abort method so the request can be cancelled
+                return {
+                    abort: () => {
+                        // This function is entered if the user has tapped the cancel button
+                        request.abort();
+
+                        // Let FilePond know the request has been cancelled
+                        abort();
+                    }
+                };
+            }
+	    }
+	});
+	
+	const inputProfileImage = document.querySelector(".profile_filepond");
+	const profilePond = FilePond.create(inputProfileImage, {
+		imageResizeTargetWidth: 256,
+		imageResizeMode: "contain",
+		allowFileTypeValidation: true,
+		acceptedFileTypes: ['image/png', 'image/jpeg'],
+		allowFileSizeValidation: true,
+		maxFileSize: "5MB",
+		
+		onaddfile: (error, file) => {
+		    if (error) {
+		        profilePond.removeFile();
+		        alert(error.main + "\n" + error.sub);
+		        return;
+		    }
+		    console.log('File added', file.filename);
+		}
+		
+	});
+	
+	$(function() {
+		init_profile_upload_dialog();
+		
+	});
+</script>
 </html>

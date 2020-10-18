@@ -36,8 +36,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         	.csrf().disable()
         	.authorizeRequests()
         		// 페이지 권한 설정
-                .antMatchers("/", "/signup", "/signin")
-                .permitAll()
+                .antMatchers("/", "/signup", "/signin").permitAll()
+                .antMatchers("/channel/**").authenticated()
             .and() // 로그인 설정
         		.formLogin()
                 .loginPage("/login")
