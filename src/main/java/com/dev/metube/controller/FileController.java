@@ -2,6 +2,7 @@ package com.dev.metube.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +22,18 @@ public class FileController {
 	FileService fileService;
 	
 	@PostMapping(value = "/upload/profile/image", consumes = {"multipart/form-data"})
-	public @ResponseBody String uploadProfileImage(@RequestParam("profile_filepond") MultipartFile file) throws IOException {
+	public @ResponseBody String uploadProfileImage(@RequestParam("profile") MultipartFile file) throws IOException {
 		return fileService.uploadProfileImage(file);
+	}
+	
+	@PostMapping(value = "/upload/video", consumes = {"multipart/form-data"})
+	public @ResponseBody String uploadVideo(@RequestParam("video") MultipartFile file) throws IOException {
+		return fileService.uploadContent(file);
+	}
+	
+	@PostMapping(value = "/upload/video/thumbnail", consumes = {"multipart/form-data"})
+	public @ResponseBody String uploadVideoThumbnail(@RequestParam("id") Integer id, @RequestParam("thumbnail") MultipartFile file) throws IOException {
+		return fileService.uploadThumbnail(id, file);
 	}
 	
 	@GetMapping("/profile/thumbnail/{id}")
