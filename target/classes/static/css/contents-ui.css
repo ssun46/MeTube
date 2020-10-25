@@ -16,7 +16,6 @@ a:hover {text-decoration: none;}
 .icon img {width: 30px;}
 input:focus {outline: none;}
 
-.media-area {width: calc( 100% / var(--ytd-rich-grid-items-per-row) - var(--ytd-rich-grid-item-margin) - 0.01px );}
 .media-area .col-12 {padding-left: 0; padding-right: 0;}
 
 .tag {color: #065fd4;}
@@ -25,7 +24,8 @@ textarea:focus {outline: none;}
 
 .top-offset {position: relative; top: 52px;}
 
-.thumbnail-img {max-width: var(--yt-img-max-width, 100%); max-height: var(--yt-img-max-height, none);}
+.thumbnail-img {max-width: 1280px; max-height: 720px;}
+.thumbnail-wrap {max-width: 1280px; max-height: 720px;}
 
 .vh-top {min-height: calc(100vh - 52px);}
 

@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dev.metube.mapper.VideoMapper;
 import com.dev.metube.model.LoginUserDetails;
 import com.dev.metube.model.User;
 import com.dev.metube.model.Video;
@@ -28,6 +29,9 @@ public class FileService {
 	
 	@Autowired
 	ContentsService contentsService;
+	
+	@Autowired
+	VideoMapper videoMapper;
 	
 	protected SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	protected Video video = new Video();
@@ -122,5 +126,26 @@ public class FileService {
 		Path uploadPath = Paths.get(contentsUploadPath + contentPath + File.separator + "thumbnail" + extension);
 		Files.write(uploadPath, file.getBytes());
 		return contentPath + File.separator + "thumbnail" + extension;
+	}
+	
+	public byte[] getContentsThumbnail(Integer id) {
+		if(id == null) {
+			return null;
+		}
+		
+		try {
+			String thumbnailPath = videoMapper.getThumbnailPath(id);
+			Path thumbnailFullPath = Paths.get(contentsUploadPath + File.separator + thumbnailPath);
+			File file = new File(thumbnailFullPath.toString());
+			if(file != null && file.exists()) {
+				byte[] imageBytes = Files.readAllBytes(file.toPath());
+				return imageBytes;
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+		return null;
 	}
 }

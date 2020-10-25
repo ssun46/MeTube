@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.dev.metube.mapper.VideoMapper;
 import com.dev.metube.model.LoginUserDetails;
+import com.dev.metube.model.ResultList;
+import com.dev.metube.model.SearchBase;
 import com.dev.metube.model.Video;
 
 @Service
@@ -17,6 +19,9 @@ public class ContentsService {
 	
 	@Autowired
 	VideoMapper videoMapper;
+	
+	protected SearchBase searchBase = new SearchBase();
+	protected ResultList resultList= new ResultList();
 	
 	public int insertFile(MultipartFile file, Video video) {
 		if(file != null) {
@@ -64,6 +69,30 @@ public class ContentsService {
 			e.printStackTrace();
 			result.put("result", false);
 			result.put("msg", "컨텐츠 등록중 오류가 발생했습니다.");
+			return result;
+		}
+		result.put("result", true);
+		return result;
+	}
+	
+	public Map<String, Object> getContentsListByGoPublic(Integer currentIndex) {
+		Map<String, Object> result = new HashMap<>();
+		if(currentIndex == null) {
+			result.put("result", false);
+			result.put("msg", "페이징 정보는 NULL일 수 없습니다.");
+			return result;
+		}
+		try {
+			searchBase.setCurrentIndex(currentIndex);
+			resultList.setCurrentIndex(currentIndex);
+			resultList.setTotalCount(videoMapper.selectContentsCountByPublicYes(searchBase));
+			resultList.setResultList(videoMapper.selectCoutentsListByPublicYes(searchBase));
+			result.put("data", resultList);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			result.put("result", false);
+			result.put("msg", "컨텐츠 조회중 오류가 발생했습니다.");
 			return result;
 		}
 		result.put("result", true);

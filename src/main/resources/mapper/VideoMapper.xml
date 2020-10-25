@@ -30,6 +30,25 @@
 		WHERE	id = #{id}
 	</select>
 	
+	<select id="selectContentsCountByPublicYes" parameterType="com.dev.metube.model.SearchBase" resultType="java.lang.Integer">
+		SELECT	COUNT(*) cnt
+		FROM tb_video tv
+		LEFT OUTER JOIN tb_user tu ON tv.reg_user = tu.id
+		LEFT OUTER JOIN tb_category tc ON tv.category = tc.id
+		WHERE tv.public_yn = 1
+	</select>
+	
+	<select id="selectCoutentsListByPublicYes" parameterType="com.dev.metube.model.SearchBase" resultType="com.dev.metube.model.Video">
+		SELECT	tv.id, tv.name, tv.notes, tv.path, tv.thumbnail, tv.public_yn, tv.reg_date, tv.mod_date,
+			tu.id user_id, tu.thumbnail_yn reg_user_thumbnail_yn, tu.display_name, tc.category_name
+		FROM tb_video tv
+		LEFT OUTER JOIN tb_user tu ON tv.reg_user = tu.id
+		LEFT OUTER JOIN tb_category tc ON tv.category = tc.id
+		WHERE tv.public_yn = 1
+		ORDER BY tv.reg_date DESC
+		LIMIT #{firstIndex}, #{dataPerPage}
+	</select>
+	
 	<update id="update" parameterType="com.dev.metube.model.Video">
 		UPDATE tb_video
 		SET
@@ -41,5 +60,11 @@
 			mod_date = now()
 		WHERE id = #{id}
 	</update>
+	
+	<select id="getThumbnailPath" parameterType="java.lang.Integer" resultType="java.lang.String">
+		SELECT	thumbnail
+		FROM 	tb_video
+		WHERE	id = #{id}
+	</select>
 	
 </mapper>
