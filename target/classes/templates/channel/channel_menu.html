@@ -90,22 +90,24 @@
 	var profilePond;
 	var videoPond;
 	var thumbnailPond;
-	
-	//Register the plugin
-	FilePond.registerPlugin(
-		FilePondPluginImagePreview,
-		FilePondPluginImageResize,
-		FilePondPluginFileValidateType,
-		FilePondPluginFileValidateSize
-	);
-	
+		
 	$(function() {
+		
+		//Register the plugin
+		FilePond.registerPlugin(
+			FilePondPluginImagePreview,
+			FilePondPluginImageResize,
+			FilePondPluginFileValidateType,
+			FilePondPluginFileValidateSize
+		);
+		
 		init_profile_upload_dialog();
 		init_video_upload_dialog();
 		
 		createProfilePond();
 		createVideoPond();
 		createThumbnailPond();
+		
 	});
 </script>
 </html>

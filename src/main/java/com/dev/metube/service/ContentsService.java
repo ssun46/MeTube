@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.dev.metube.mapper.VideoMapper;
 import com.dev.metube.model.LoginUserDetails;
@@ -97,5 +98,21 @@ public class ContentsService {
 		}
 		result.put("result", true);
 		return result;
+	}
+	
+	public Video getContentsVideo(Integer id) {
+		Video video = null;
+		if(id == null) {
+			return null;
+		}
+		
+		try {
+			video = videoMapper.selectVideoById(id);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+		return video;
 	}
 }

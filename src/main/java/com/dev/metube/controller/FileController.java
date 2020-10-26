@@ -2,9 +2,9 @@ package com.dev.metube.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,5 +39,10 @@ public class FileController {
 	@GetMapping("/profile/thumbnail/{id}")
 	public @ResponseBody byte[] getProfileThumbnailImage(@PathVariable("id") Integer id) throws UnsupportedEncodingException {
 		return fileService.getProfileThumbnail(id);
+	}
+	
+	@GetMapping("/video/{id}")
+	public @ResponseBody FileSystemResource getVideo(@PathVariable("id") Integer id) throws UnsupportedEncodingException {
+		return fileService.getVideo(id);
 	}
 }

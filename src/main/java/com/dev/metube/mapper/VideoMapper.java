@@ -14,6 +14,7 @@ public interface VideoMapper {
 	public String selectPathById(@Param("id") Integer id);
 	public Integer selectContentsCountByPublicYes(SearchBase search);
 	public List<Video> selectCoutentsListByPublicYes(SearchBase search);
+	public Video selectVideoById(@Param("id") Integer id);
 	public int update(Video video);
 	public String getThumbnailPath(@Param("id") Integer id);
 }

@@ -1,12 +1,3 @@
-$.fn.serializeObject = function () {
-	var formData = {};
-	var formArray = this.serializeArray();
-	
-	for(var i = 0, n = formArray.length; i < n; ++i)
-		formData[formArray[i].name] = formArray[i].value;
-	
-	return formData;
-};
 
 function init_profile_upload_dialog() {
 	$("#profile_upload_dialog").dialog({
@@ -235,7 +226,7 @@ function createVideoPond() {
 	const inputVideo = document.querySelector(".video_filepond");
 	videoPond = FilePond.create(inputVideo, {
 		allowFileTypeValidation: true,
-		acceptedFileTypes: ['video/*'],
+		acceptedFileTypes: ['video/mp4'],
 		allowFileSizeValidation: false,
 		
 		onaddfile: (error, file) => {

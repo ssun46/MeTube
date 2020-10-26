@@ -27,6 +27,8 @@ textarea:focus {outline: none;}
 .thumbnail-img {max-width: 1280px; max-height: 720px;}
 .thumbnail-wrap {max-width: 1280px; max-height: 720px;}
 
+.video-area {max-width: 60%; padding-top: 10px;}
+
 .vh-top {min-height: calc(100vh - 52px);}
 
 /* Large devices (desktops, 992px and down) */
@@ -36,9 +38,13 @@ textarea:focus {outline: none;}
 /* Medium devices (tablets, 768px and down) */
 @media (max-width: 767px) {
 	.px-5 {padding-left: 0.5rem !important; padding-right: 0.5rem !important;}
+
+	.video-area {max-width: 80%; padding-top: 10px;}
 }
 
 /* Small devices (landscape phones, 576px and down) */
 @media (max-width: 575px) {
 	.px-5 {padding-left: 10px !important; padding-right: 10px !important;}
+	
+	.video-area {max-width: 100%; padding-top: 10px;}
 }

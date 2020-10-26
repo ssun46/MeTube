@@ -6,7 +6,7 @@
 	<body>
 		<div id="header" th:fragment="header">
 			<nav class="row justify-content-between navbar navbar-area navbar-expand bg-white fixed-top">
-				<div class="col-lg-3 col-md-8 text-left">
+				<div class="col-lg-3 col-md-4 text-left" style="width: auto;">
 					<a class="navbar-brand on-md"><img th:src="@{/img/button_top_nav_menu.png}"></a>
 					<a th:href="@{/}" class="top-logo"><img th:src="@{/img/img_logo_with_title.png}"></a>
 				</div>
@@ -24,8 +24,8 @@
 						</div>
 					</form>
 				</div>
-				<div class="col-lg-3 col-md-4 text-right align-baseline">
-					<a class="top-menu"><img th:src="@{/img/button_top_menu_renderer.png}"></a>
+				<div class="col-lg-3 col-md-8 text-right align-baseline" style="width: auto;">
+					<a th:href="@{/channel}" class="top-menu"><img th:src="@{/img/button_top_menu_renderer.png}"></a>
 					<a class="top-menu off-lg"><img th:src="@{/img/button_search_dark.png}"></a>
 					<a th:href="@{/login}" class="btn-login" sec:authorize="isAnonymous()">
 						<img th:src="@{/img/button_inner_profile.png}">

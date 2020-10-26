@@ -12,7 +12,9 @@
 		<div class="d-flex row m-0 media-area">
 			<div class="col-12" style="background-color: rgb(15 15 15);">
 				<div class="d-block text-center">
-					<img th:src="@{/img/sample_thumbnail.png}" style="max-width: 100%">
+					<video class="video-area" loop="true" autoplay="autoplay" controls="controls">
+						<source th:src="@{/video/} + ${contents.id}" type="video/mp4">
+					</video>
 				</div>
 			</div>
 		</div>
@@ -20,17 +22,15 @@
 		<div class="px-5 py-3">
 			<div>
 				<div class="tag">
-					<a>#태그1</a>
-					<a>#태그2</a>
-					<a>#태그3</a>
+					<a>#<span th:text="${contents.category_name}"></span></a>
 				</div>
-				<h5>[2020 LoL 월드 챔피언십] 그룹 스테이지 2일차</h5>
+				<h5 th:text="${contents.name}"></h5>
 			</div>
 			<div class="row pb-3 border-bottom f-gray">
 				<div class="col-lg-4 col-md-12">
 					<span>조회수 5,323,232회</span>
 					<span>·</span>
-					<span>2020. 10. 01</span>
+					<span th:text="${contents.mod_date}"></span>
 				</div>
 				<div class="col-lg-8 col-md-12 text-right">
 					<span class="icon px-2"><a><img th:src="@{/img/button_like.png}" class="pr-2">1.3만</a></span>
@@ -40,21 +40,23 @@
 			</div>
 
 			<div class="media py-3 border-bottom">
-				<!-- <img src="..." class="align-self-start round-circle mr-3" alt="..."> -->
-				<span class="text-center align-items-center rounded-circle mr-3" th:text="이" style="color: #fff; background-color: blue; width:50px; height: 50px;"></span>
+				<span class="text-center align-items-center rounded-circle bg-success font-weight-bold text-white mr-3" style="width:  50px; height: 50px;"
+					th:alt="${contents..display_name}" th:text="${#strings.substring(contents.display_name, 0, 1)}"
+				 	th:if="${contents.reg_user_thumbnail_yn.toString()} == 'N'">
+			 	</span> 	
+			 	<span>
+					<img th:src="@{/profile/thumbnail/} + ${contents.user_id}" class="align-self-center rounded-circle mr-3" style="width: 50px; height: 50px;"
+						th:unless="${contents.reg_user_thumbnail_yn.toString()} == 'N'">
+				</span>
 				<div class="row media-body">
 					<div class="col-8">
-						<h5 class="mt-0">Media heading</h5>
+						<h5 class="mt-0" th:text="${contents.display_name}"></h5>
 						<h6 class="f-gray">구독자 606명</h6>
 					</div>
 					<div class="col-4 text-right">
 						<input type="button" class="btn btn-danger" value="구독"/>
 					</div>
-					<div class="pt-3 px-3">
-						Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-						scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-						vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-						vulputate fringilla. Donec lacinia congue felis in faucibus.
+					<div class="pt-3 px-3" th:text="${contents.notes}">
 					</div>
 				</div>
 			</div>
@@ -188,4 +190,5 @@
 		</div>
 	</div>
 </body>
+
 </html>

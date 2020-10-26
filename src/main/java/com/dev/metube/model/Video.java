@@ -1,5 +1,6 @@
 package com.dev.metube.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.dev.metube.type.EnumYn;
@@ -13,14 +14,16 @@ public class Video {
 	private Integer category;
 	private EnumYn public_yn;
 	private Integer regUser;
-	private Date regDt;
-	private Date modDt;
+	private Date reg_date;
+	private Date mod_date;
 	
 	private Integer user_id;
 	private String display_name;
 	private String category_name;
 	private EnumYn reg_user_thumbnail_yn; 
 
+	private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
 	public void setCategory_name(String category_name) {
 		this.category_name = category_name;
 	}
@@ -89,20 +92,20 @@ public class Video {
 		this.regUser = regUser;
 	}
 	
-	public Date getRegDt() {
-		return regDt;
+	public String getReg_date() {
+		return format.format(reg_date);
 	}
 	
-	public void setRegDt(Date regDt) {
-		this.regDt = regDt;
+	public void setReg_data(Date reg_date) {
+		this.reg_date = reg_date;
 	}
 	
-	public Date getModDt() {
-		return modDt;
+	public String getMod_date() {
+		return format.format(mod_date);
 	}
 	
-	public void setModDt(Date modDt) {
-		this.modDt = modDt;
+	public void setMod_date(Date mod_date) {
+		this.mod_date = mod_date;
 	}
 
 	public Integer getUser_id() {
@@ -136,11 +139,11 @@ public class Video {
 	@Override
 	public String toString() {
 		return "Video [id=" + id + ", name=" + name + ", notes=" + notes + ", path=" + path + ", thumbnail=" + thumbnail
-				+ ", category=" + category + ", public_yn=" + public_yn + ", regUser=" + regUser + ", regDt=" + regDt
-				+ ", modDt=" + modDt + ", getId()=" + getId() + ", getName()=" + getName() + ", getNotes()="
+				+ ", category=" + category + ", public_yn=" + public_yn + ", regUser=" + regUser + ", reg_date=" + reg_date
+				+ ", mod_date=" + mod_date + ", getId()=" + getId() + ", getName()=" + getName() + ", getNotes()="
 				+ getNotes() + ", getPath()=" + getPath() + ", getThumbnail()=" + getThumbnail() + ", getCategory()="
 				+ getCategory() + ", getPublic_yn()=" + getPublic_yn() + ", getRegUser()=" + getRegUser()
-				+ ", getRegDt()=" + getRegDt() + ", getModDt()=" + getModDt() + ", getClass()=" + getClass()
+				+ ", getReg_date()=" + getReg_date() + ", getMod_date()=" + getMod_date() + ", getClass()=" + getClass()
 				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 

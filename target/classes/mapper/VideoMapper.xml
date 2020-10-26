@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dev.metube.mapper.VideoMapper">
-	<resultMap id="VideoResultMap" type="com.dev.metube.model.Video">
-		<result column="reg_user" jdbcType="INTEGER" property="regUser"/>
-		<result column="reg_date" jdbcType="TIMESTAMP" property="regDt"/>
-		<result column="mod_date" jdbcType="TIMESTAMP" property="modDt"/>
-	</resultMap>
-	
+<mapper namespace="com.dev.metube.mapper.VideoMapper">	
 	<insert id="insertFile" useGeneratedKeys="true" keyProperty="id" parameterType="com.dev.metube.model.Video">
 		INSERT INTO tb_video (
 			name,
@@ -65,6 +59,15 @@
 		SELECT	thumbnail
 		FROM 	tb_video
 		WHERE	id = #{id}
+	</select>
+	
+	<select id="selectVideoById" parameterType="java.lang.Integer" resultType="com.dev.metube.model.Video">
+		SELECT	tv.id, tv.name, tv.notes, tv.path, tv.thumbnail, tv.public_yn, tv.reg_date, tv.mod_date,
+			tu.id user_id, tu.thumbnail_yn reg_user_thumbnail_yn, tu.display_name, tc.category_name
+		FROM tb_video tv
+		LEFT OUTER JOIN tb_user tu ON tv.reg_user = tu.id
+		LEFT OUTER JOIN tb_category tc ON tv.category = tc.id
+		WHERE tv.id = #{id}
 	</select>
 	
 </mapper>

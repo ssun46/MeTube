@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -147,5 +148,21 @@ public class FileService {
 			return null;
 		}
 		return null;
+	}
+	
+	public FileSystemResource getVideo(Integer id) {
+		if(id == null) {
+			return null;
+		}
+		
+		try {
+			String videoPath = videoMapper.selectPathById(id);
+			Path videoFullPath = Paths.get(contentsUploadPath + File.separator + videoPath);
+			 return new FileSystemResource(videoFullPath.toString());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
