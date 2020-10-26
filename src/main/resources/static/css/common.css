@@ -1,0 +1,5 @@
+@charset "utf-8";
+
+img {object-fit: cover;}
+
+.m-hover:hover {cursor: pointer;}

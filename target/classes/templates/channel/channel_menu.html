@@ -14,21 +14,21 @@
 		<div class="px-7 pt-3" style="padding-bottom: 4px;">
 			<div class="media align-items-center" style="width: 100%;">
 				<div class="thumbnail-area">
-					<a class="text-center align-items-center rounded-circle bg-success font-weight-bold text-white" style="width: 100%; height: 100%;"
+					<span class="text-center align-items-center rounded-circle bg-success font-weight-bold text-white m-hover" style="width: 100%; height: 100%;"
 						th:alt="${user.display_name}" th:text="${#strings.substring(user.display_name, 0, 1)}"
 					 	th:if="${user.thumbnail_yn.toString()} == 'N'">
-				 	</a> 	
-					<a>
+				 	</span> 	
+					<span class="m-hover">
 						<img th:src="@{/profile/thumbnail/} + ${user.id}" class="align-self-center rounded-circle" style="width: 100%; height: 100%;"
 							th:unless="${user.thumbnail_yn.toString()} == 'N'">
-					</a>
-					<a id="profile_upload_button" onclick="javascript:thumbnail_upload();" class="overlay rounded-circle align-items-center">
+					</span>
+					<a id="profile_upload_button" onclick="javascript:thumbnail_upload();" class="overlay rounded-circle align-items-center m-hover">
 						<img th:src="@{/img/button_camera.png}">
 					</a>
 				</div>
 				<div class="d-flex justify-content-between media-body pl-3">
 					<h4 class="mt-0" th:text="${user.display_name}" style="line-height: 1.5;"></h4>
-					<a><input type="button" onclick="javascript:video_upload();" class="btn btn-deepblue" value="동영상 업로드" /></a>
+					<a class="m-hover"><input type="button" onclick="javascript:video_upload();" class="btn btn-deepblue" value="동영상 업로드" /></a>
 				</div>
 			</div>
 		</div>
