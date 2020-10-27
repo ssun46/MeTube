@@ -23,7 +23,8 @@ public class MainController {
 	UserService userService;
 	
 	@RequestMapping
-	public String main() {
+	public String main(@RequestParam(value="keyword", defaultValue="") String keyword, Model model) {
+		model.addAttribute("keyword", keyword);
 		return "contents/contents_list";
 	}
 		

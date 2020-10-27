@@ -30,6 +30,7 @@
 		LEFT OUTER JOIN tb_user tu ON tv.reg_user = tu.id
 		LEFT OUTER JOIN tb_category tc ON tv.category = tc.id
 		WHERE tv.public_yn = 1
+			AND (tv.name LIKE concat_ws(#{keyword}, "%", "%") OR tv.notes LIKE concat_ws(#{keyword}, "%", "%"))
 	</select>
 	
 	<select id="selectCoutentsListByPublicYes" parameterType="com.dev.metube.model.SearchBase" resultType="com.dev.metube.model.Video">
@@ -39,6 +40,7 @@
 		LEFT OUTER JOIN tb_user tu ON tv.reg_user = tu.id
 		LEFT OUTER JOIN tb_category tc ON tv.category = tc.id
 		WHERE tv.public_yn = 1
+			AND (tv.name LIKE concat_ws(#{keyword}, "%", "%") OR tv.notes LIKE concat_ws(#{keyword}, "%", "%"))
 		ORDER BY tv.reg_date DESC
 		LIMIT #{firstIndex}, #{dataPerPage}
 	</select>

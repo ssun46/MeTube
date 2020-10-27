@@ -11,18 +11,17 @@
 					<a th:href="@{/}" class="top-logo m-hover"><img th:src="@{/img/img_logo_with_title.png}"></a>
 				</div>
 				<div class="col-lg-6 on-lg">
-					<form class="form-inline justify-content-center">
+					<div class="form-inline justify-content-center">
 						<div class="input-group navbar-search">
-							<input type="text" class="form-control" placeholder="검색" aria-describedby="search">
+							<input type="text" id="keyword" th:value="${keyword}"class="form-control" placeholder="검색" aria-describedby="search">
 							<div class="input-group-prepend">
-								<a>
-									<span class="input-group-text navbar-search-btn justify-content-center" id="search">
-										<img th:src="@{/img/button_search.png}">
-									</span>
-								</a>
+								<span class="input-group-text navbar-search-btn justify-content-center m-hover" id="search">
+									<img id="search" th:src="@{/img/button_search.png}">
+								</span>
 							</div>
+							<input type="hidden" name="keyword" />
 						</div>
-					</form>
+					</div>
 				</div>
 				<div class="col-lg-3 col-md-8 text-right align-baseline" style="width: auto;">
 					<a th:href="@{/channel}" class="top-menu"><img th:src="@{/img/button_top_menu_renderer.png}"></a>

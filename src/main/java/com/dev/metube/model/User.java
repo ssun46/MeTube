@@ -12,7 +12,7 @@ public class User {
 	private String username;
 	private String password;
 	private String display_name;
-	private EnumSex sex;
+	private int sex;
 	private String phone;
 	private String address;
 	private EnumYn thumbnail_yn;
@@ -45,10 +45,10 @@ public class User {
 	public void setDisplay_name(String display_name) {
 		this.display_name = display_name;
 	}
-	public EnumSex getSex() {
+	public int getSex() {
 		return sex;
 	}
-	public void setSex(EnumSex sex) {
+	public void setSex(int sex) {
 		this.sex = sex;
 	}
 	public String getPhone() {
@@ -98,7 +98,7 @@ public class User {
 	public String toString() {
 		return ">>> Model USER : ["
 				+ "id= " + id + ", username= " + username + ", password= " + password + ", display_name= " + display_name
-				+ ", sex= " + sex.name() + ", phone= " + phone + ", address= " + address
+				+ ", sex= " + sex + ", phone= " + phone + ", address= " + address
 				+ ", thumbnail_yn= " + thumbnail_yn.name() + ", thumbnail_path= " + thumbnail_path
 				+ ", type= " + type.name() + ", status= " + status.name() + ", register_date= " + register_date
 				+ "]";

@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dev.metube.mapper.UserMapper">
 	<resultMap id="UserResultMap" type="com.dev.metube.model.User">
-		<result column="sex" jdbcType="SMALLINT" property="sex" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
 		<result column="thumbnail_yn" jdbcType="SMALLINT" property="thumbnail_yn" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
 		<result column="type" jdbcType="SMALLINT" property="type" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
 		<result column="status" jdbcType="SMALLINT" property="status" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>

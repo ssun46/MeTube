@@ -12,7 +12,7 @@
 		<div id="list_div" class="d-flex row m-0">
 		</div>
 		
-		<div class="align-items-center">
+		<div class="align-items-center pt-3">
 			<nav aria-label="Page navigation">
 				<ul id="pagination" class="pagination"></ul>
 			</nav>
@@ -29,12 +29,12 @@
 			<img class="thumbnail-img w-100" th:src="@{/contents/{{id}}/thumbnail}">
 			<div class="card-body">
 				<div class="media">
-					{{#ifeq reg_user_thumbnail_yn "y"}}
+					{{#ifeq reg_user_thumbnail_yn "N"}}
 					<span class="text-center align-items-center rounded-circle bg-success font-weight-bold text-white mr-3" style="width: 36px; height: 36px;">
 						{{#firstChar display_name}}{{/firstChar}}
 				 	</span>
 					{{/ifeq}}
-					{{#ifneq reg_user_thumbnail_yn "y"}}
+					{{#ifneq reg_user_thumbnail_yn "N"}}
 					<span>
 						<img th:src="@{/profile/thumbnail/{{user_id}}}" class="align-self-center rounded-circle mr-3" style="width: 36px; height: 36px;">
 					</span>
@@ -57,19 +57,19 @@
 
 <script id="contentsPagination_template" type="text/x-handlebars-template">
 	<li class="page-item">
-		<a onclick="paging(1);" class="page-link" aria-label="Previous">
+		<span onclick="paging(1);" class="page-link m-hover" aria-label="Previous">
 			<span aria-hidden="true">&laquo;</span>
-		</a>
+		</span>
 	</li>
 	{{#pagination currentIndex totalPages 8}}
 		{{#each pages}}
-		<li onclick="paging({{page}});" class="page-item {{#if current}}active{{/if}}"><a class="page-link" >{{page}}</a></li>
+		<li onclick="paging({{page}});" class="page-item m-hover {{#if current}}active{{/if}}"><span class="page-link" >{{page}}</span></li>
 		{{/each}}
 	{{/pagination}}
 	<li class="page-item">
-		<a onclick="paging({{totalPages}});" class="page-link"  aria-label="Next">
+		<span onclick="paging({{totalPages}});" class="page-link m-hover" aria-label="Next">
 			<span aria-hidden="true">&raquo;</span>
-		</a>
+		</span>
 	</li>
 </script>
 
@@ -83,11 +83,14 @@
 	}
 	
 	function getContents() {
+		var keyword = $("input[name=keyword]").val();
+		
 		$.ajax({
 			url: contentsListUrl,
 			type: "POST",
 			data: {
-				currentIndex: $("input[name=currentIndex]").val()
+				currentIndex: $("input[name=currentIndex]").val(),
+				keyword: keyword
 			},
 			success: function(response) {
 				console.log(response);
@@ -96,7 +99,7 @@
 					var template = Handlebars.compile(source);
 					var itemList = template(response.data);
 					$('#list_div').html(itemList);
-					console.log(response.data.pagination)
+					
 					var pagingSource = $("#contentsPagination_template").html();
 					var pagingTemplate = Handlebars.compile(pagingSource);
 					var pagingList = pagingTemplate(response.data.pagination);
@@ -114,8 +117,16 @@
 		});
 	}
 	
-	$(function() {
+	function searchByKeyword() {
+		var keyword = $("#keyword").val();
+		$("input[name=keyword]")[0].value = keyword;
+		$("input[name=currentIndex]")[0].value = 1;
 		getContents();	
+	}
+	
+	$(function() {
+		$("#search").click(searchByKeyword);
+		searchByKeyword();
 	});
 /*]]>*/
 </script>

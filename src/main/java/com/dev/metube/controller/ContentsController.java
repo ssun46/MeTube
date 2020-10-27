@@ -48,8 +48,8 @@ public class ContentsController {
 	}
 	
 	@PostMapping("/list")
-	public @ResponseBody Map<String, Object> getContentsListByGoPublic(@RequestParam("currentIndex") Integer currentIndex) {
-		return contentsService.getContentsListByGoPublic(currentIndex);
+	public @ResponseBody Map<String, Object> getContentsListByGoPublic(@RequestParam("keyword") String keyword, @RequestParam("currentIndex") Integer currentIndex) {
+		return contentsService.getContentsListByGoPublic(keyword, currentIndex);
 	}
 	
 	@GetMapping("/{id}/thumbnail")

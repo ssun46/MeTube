@@ -76,7 +76,7 @@ public class ContentsService {
 		return result;
 	}
 	
-	public Map<String, Object> getContentsListByGoPublic(Integer currentIndex) {
+	public Map<String, Object> getContentsListByGoPublic(String keyword, Integer currentIndex) {
 		Map<String, Object> result = new HashMap<>();
 		if(currentIndex == null) {
 			result.put("result", false);
@@ -85,6 +85,7 @@ public class ContentsService {
 		}
 		try {
 			searchBase.setCurrentIndex(currentIndex);
+			searchBase.setKeyword(keyword);
 			resultList.setCurrentIndex(currentIndex);
 			resultList.setTotalCount(videoMapper.selectContentsCountByPublicYes(searchBase));
 			resultList.setResultList(videoMapper.selectCoutentsListByPublicYes(searchBase));
