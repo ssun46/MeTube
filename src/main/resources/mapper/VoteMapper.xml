@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dev.metube.mapper.VoteMapper">	
+	<insert id="insert" parameterType="com.dev.metube.model.Vote">
+		INSERT INTO tb_vote (video_id, user_id, value, reg_date)
+		VALUES (
+			#{video_id},
+			#{user_id},
+			#{value},
+			now()
+		)
+	</insert>
+		
+	<delete id="delete" parameterType="com.dev.metube.model.Vote">
+		DELETE tb_vote
+		WHERE video_id = #{video_id} AND user_id = #{user_id}
+	</delete>
+	
+	<select id="selectExist" parameterType="com.dev.metube.model.Vote" resultType="boolean">
+		SELECT EXISTS (
+			SELECT *
+			FROM tb_vote
+			WHERE video_id = #{video_id} AND user_id = #{user_id}
+		)
+	</select>
+</mapper>

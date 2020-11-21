@@ -158,7 +158,7 @@ public class FileService {
 		try {
 			String videoPath = videoMapper.selectPathById(id);
 			Path videoFullPath = Paths.get(contentsUploadPath + File.separator + videoPath);
-			 return new FileSystemResource(videoFullPath.toString());
+			return new FileSystemResource(videoFullPath.toString());
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
